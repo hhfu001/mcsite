@@ -1,1 +1,1 @@
-nodejs + jade
+nodejs + jade + mongoose
