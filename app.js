@@ -71,6 +71,25 @@ app.get('/admin/list', function(req, res) {
     });
 });
 
+//admin del page
+app.delete('/admin/list', function(req, res) {
+    var id = req.query.id;
+
+    if(!id) return;
+   
+    Movie.remove({_id: id}, function(err, movies) {
+        if(err){
+             console.log(err);
+         }else{
+            res.json({code : 0, msg: "success"})
+         }
+
+
+        
+
+    });
+});
+
 //admin page add
 app.get('/admin/movie', function(req, res) {
     res.render('admin', {

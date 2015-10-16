@@ -1,7 +1,7 @@
 {
-  "name": "jade",
+  "name": "mcsite",
   "version": "1.0.0",
-  "description": "",
+  "description": "nodejs + jade + mongoose",
   "main": "app.js",
   "dependencies": {
     "body-parser": "^1.14.1",
@@ -16,5 +16,13 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "hhfu",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hhfu001/mcsite.git"
+  },
+  "bugs": {
+    "url": "https://github.com/hhfu001/mcsite/issues"
+  },
+  "homepage": "https://github.com/hhfu001/mcsite#readme"
 }

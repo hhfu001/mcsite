@@ -1,5 +1,5 @@
 {
-  "name": "jadetest",
+  "name": "mcsite",
   "version": "0.0.1",
   "homepage": "https://github.com/hhfu001/hhfu001",
   "authors": [
@@ -7,9 +7,7 @@
   ],
   "description": "test jade",
   "main": "app.js",
-  "moduleType": [
-    "node"
-  ],
+  "moduleType": [],
   "license": "MIT",
   "private": true,
   "ignore": [
@@ -22,5 +20,8 @@
   ],
   "dependencies": {
     "bootstrap": "~3.3.5"
-  }
+  },
+  "keywords": [
+    "mcsite"
+  ]
 }
