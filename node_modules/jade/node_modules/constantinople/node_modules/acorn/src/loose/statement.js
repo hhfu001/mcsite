@@ -125,7 +125,6 @@ lp.parseStatement = function() {
       this.expect(tt.parenL)
       clause.param = this.toAssignable(this.parseExprAtom(), true)
       this.expect(tt.parenR)
-      clause.guard = null
       clause.body = this.parseBlock()
       node.handler = this.finishNode(clause, "CatchClause")
     }
@@ -359,7 +358,7 @@ lp.parseImport = function() {
       this.eat(tt.comma)
     }
     node.specifiers = this.parseImportSpecifierList()
-    node.source = this.eatContextual("from") ? this.parseExprAtom() : this.dummyString()
+    node.source = this.eatContextual("from") && this.tok.type == tt.string ? this.parseExprAtom() : this.dummyString()
     if (elt) node.specifiers.unshift(elt)
   }
   this.semicolon()
@@ -381,7 +380,7 @@ lp.parseImportSpecifierList = function() {
     while (!this.closes(tt.braceR, indent + (this.curLineStart <= continuedLine ? 1 : 0), line)) {
       let elt = this.startNode()
       if (this.eat(tt.star)) {
-        if (this.eatContextual("as")) elt.local = this.parseIdent()
+        elt.local = this.eatContextual("as") ? this.parseIdent() : this.dummyIdent()
         this.finishNode(elt, "ImportNamespaceSpecifier")
       } else {
         if (this.isContextual("from")) break
