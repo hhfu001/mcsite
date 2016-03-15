@@ -9,7 +9,7 @@ $(function(){
 
 		$.ajax({
 			type: 'DELETE',
-			url: '/admin/list?id=' + id
+			url: '/admin/movie/list?id=' + id
 		}).done(function(ret){
 			if(ret.code == 0){
 				parent.remove();
