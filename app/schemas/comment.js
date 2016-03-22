@@ -1,17 +1,17 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-var ObjectId = Schema.Types.ObjectId;
+var ObjectId = Schema.Types.ObjectId; //主键
 
 var CommentSchema = new mongoose.Schema({
     movie: {
         type: ObjectId,
         ref: 'Movie'
     },
-    from: {
+    from: { // 留言者
         type: ObjectId,
         ref: 'User'
     },
-    reply: [{
+    reply: [{//留言回复
         from: {
             type: ObjectId,
             ref: 'User'

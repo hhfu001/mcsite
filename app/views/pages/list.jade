@@ -11,6 +11,7 @@ block content
 						th 国家
 						th 上映年份
 						th 录入时间
+						th PV
 						th 查看
 						th 更新
 						th 删除
@@ -22,8 +23,9 @@ block content
 							td #{item.country}
 							td #{item.year}
 							td #{moment(item.meta.creatAt).format('MM/DD/YYYY')}
-							td: a(href="../movie/#{item._id}", target="_blank") 查看
-							td: a(href="../admin/update/#{item._id}", target="_blank") 修改
+							td #{item.pv}
+							td: a(href="../../movie/#{item._id}", target="_blank") 查看
+							td: a(href="../movie/update/#{item._id}", target="_blank") 修改
 							td 
 								button.btn.btn-danger.del(type="button", data-id="#{item._id}") 删除
 

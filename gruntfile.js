@@ -1,113 +1,114 @@
 module.exports = function(grunt) {
 
-  grunt.initConfig({
-    watch: {
-      jade: {
-        files: ['views/**'],
-        options: {
-          livereload: true
-        }
-      },
-      js: {
-        files: ['public/js/**', 'models/**/*.js', 'schemas/**/*.js'],
-        // tasks: ['jshint'],
-        options: {
-          livereload: true
-        }
-      // },
-      // uglify: {
-      //   files: ['public/**/*.js'],
-      //   tasks: ['jshint'],
-      //   options: {
-      //     livereload: true
-      //   }
-      // },
-      // styles: {
-      //   files: ['public/**/*.less'],
-      //   tasks: ['less'],
-      //   options: {
-      //     nospawn: true
-      //   }
-      }
-    },
+    grunt.initConfig({
+        watch: {
+            jade: {
+                files: ['views/**'],
+                options: {
+                    livereload: true
+                }
+            },
+            js: {
+                files: ['public/js/**', 'models/**/*.js', 'schemas/**/*.js'],
+                tasks: ['jshint'],
+                options: {
+                    livereload: true
+                }
+            },
+            uglify: {
+                files: ['public/**/*.js'],
+                tasks: ['jshint'],
+                options: {
+                    livereload: true
+                }
+            },
+            styles: {
+                files: ['public/**/*.less'],
+                tasks: ['less'],
+                options: {
+                    nospawn: true
+                }
+            }
+        },
 
-    // jshint: {
-    //   options: {
-    //     jshintrc: '.jshintrc',
-    //     ignores: ['public/libs/**/*.js']
-    //   },
-    //   all: ['public/js/*.js', 'test/**/*.js', 'app/**/*.js']
-    // },
-
-    // less: {
-    //   development: {
-    //     options: {
-    //       compress: true,
-    //       yuicompress: true,
-    //       optimization: 2
-    //     },
-    //     files: {
-    //       'public/build/index.css': 'public/less/index.less'
-    //     }
-    //   }
-    // },
-
-    // uglify: {
-    //   development: {
-    //     files: {
-    //       'public/build/admin.min.js': 'public/js/admin.js',
-    //       'public/build/detail.min.js': [
-    //         'public/js/detail.js'
-    //       ]
-    //     }
-    //   }
-    // },
-
-    nodemon: {
-      dev: {
-        options: {
-          file: 'app.js',
-          args: [],
-          ignoredFiles: ['README.md', 'node_modules/**', '.DS_Store'],
-          watchedExtensions: ['js'],
-          watchedFolders: ['./'],
-          debug: true,
-          delayTime: 1,
-          env: {
-            PORT: 3000
+        jshint: {
+          options: {
+            jshintrc: '.jshintrc',
+            ignores: ['public/libs/**/*.js']
           },
-          cwd: __dirname
+          all: ['public/js/*.js', 'test/**/*.js', 'app/**/*.js']
+        },
+
+        less: {
+          development: {
+            options: {
+              compress: true,
+              yuicompress: true,
+              optimization: 2
+            },
+            files: {
+              'public/dist/index.css': 'public/less/index.less'
+            }
+          }
+        },
+
+        uglify: {
+          development: {
+            files: {
+              'public/dist/admin.min.js': 'public/js/admin.js',
+              'public/dist/detail.min.js': [
+                'public/js/detail.js',
+                'public/js/remove.js'
+              ]
+            }
+          }
+        },
+
+        nodemon: {
+            dev: {
+                options: {
+                    file: 'app.js',
+                    args: [],
+                    ignoredFiles: ['README.md', 'node_modules/**', '.DS_Store'],
+                    watchedExtensions: ['js'],
+                    watchedFolders: ['./'],
+                    debug: true,
+                    delayTime: 1,
+                    env: {
+                        PORT: 3000
+                    },
+                    cwd: __dirname
+                }
+            }
+        },
+
+        // mochaTest: {
+        //   options: {
+        //     reporter: 'spec'
+        //   },
+        //   src: ['test/**/*.js']
+        // },
+
+        concurrent: {
+            // tasks: ['nodemon', 'watch'],
+            tasks: ['nodemon', 'watch', 'less', 'uglify', 'jshint'],
+            options: {
+                logConcurrentOutput: true
+            }
         }
-      }
-    },
+    })
 
-    // mochaTest: {
-    //   options: {
-    //     reporter: 'spec'
-    //   },
-    //   src: ['test/**/*.js']
-    // },
+    grunt.loadNpmTasks('grunt-contrib-watch')
+    grunt.loadNpmTasks('grunt-nodemon') //实时监听app.js
+    grunt.loadNpmTasks('grunt-concurrent') //慢任务监听less、sass
+        // grunt.loadNpmTasks('grunt-mocha-test')
+    grunt.loadNpmTasks('grunt-contrib-less')
+    grunt.loadNpmTasks('grunt-contrib-uglify')
+    grunt.loadNpmTasks('grunt-contrib-jshint')
 
-    concurrent: {
-      tasks: ['nodemon', 'watch'],
-      // tasks: ['nodemon', 'watch', 'less', 'uglify', 'jshint'],
-      options: {
-        logConcurrentOutput: true
-      }
-    }
-  })
+    grunt.option('force', true) //防止语法错误中断整个程序
 
-  grunt.loadNpmTasks('grunt-contrib-watch')
-  grunt.loadNpmTasks('grunt-nodemon')
-  grunt.loadNpmTasks('grunt-concurrent')
-  // grunt.loadNpmTasks('grunt-mocha-test')
-  // grunt.loadNpmTasks('grunt-contrib-less')
-  // grunt.loadNpmTasks('grunt-contrib-uglify')
-  // grunt.loadNpmTasks('grunt-contrib-jshint')
+    grunt.registerTask('default', ['concurrent']) //注册任务
 
-  grunt.option('force', true)
-
-  grunt.registerTask('default', ['concurrent'])
-
-  // grunt.registerTask('test', ['mochaTest'])
+    // grunt.registerTask('test', ['mochaTest'])
 }

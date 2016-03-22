@@ -5,12 +5,15 @@ var UserModel = require('../models/user');
 exports.signup = function(req, res) {
     var _user = req.body.user;
 
+    // req.param('user')
+    // req.query.user
 
     UserModel.findOne({
         name: _user.name
     }, function(err, user) {
         if (err) console.log(err)
 // console.log('user:', user)
+        //是否存在相同用户
         if (user) {
             res.redirect('/signin')
         } else {

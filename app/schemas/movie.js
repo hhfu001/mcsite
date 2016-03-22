@@ -15,6 +15,10 @@ var MovieSchema = new Schema({
     flash: String,
     poster: String,
     year: Number,
+    pv: {
+        Number,
+        default: 0
+    },
     meta: {
         createAt: {
             type: Date,

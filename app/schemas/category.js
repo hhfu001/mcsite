@@ -4,7 +4,7 @@ var ObjectId = Schema.Types.ObjectId;
 
 var CategorySchema = new mongoose.Schema({
     name: String,
-    movie: [{
+    movies: [{
         type: ObjectId,
         ref :'Movie'
     }],

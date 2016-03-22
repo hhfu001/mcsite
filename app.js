@@ -4,35 +4,39 @@ var path = require('path');
 var app = express();
 
 var mongoose = require('mongoose');
+var morgan = require('morgan');
 
 var cookieParser = require('cookie-parser');
 var cookieSession = require('cookie-session');
 var bodyParser = require('body-parser');
-var morgan = require('morgan');
 
 mongoose.connect('mongodb://localhost/imooc');
 
-
+// .get .set 可以往 express 实例上存数据，可以是对 express 的配置数据，也可以是其它数据
 app.set('views', './app/views/pages');
 app.set('view engine', 'jade');
 
+// app.use 引入插件的方法
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({
     extended: true
 }))
+
 app.use(cookieParser())
 app.use(cookieSession({
     secret: 'imooc'
 }))
 
+//app.locals  persist throughout the life of the application
 app.locals.moment = require('moment');
 
-// console.log(app.get('env'))
-if('development' === app.get('env')){
+var env = process.env.NODE_ENV || 'development';
+console.log('env:', env)
+if('development' === env){
     app.set('showStackError', true);
     app.use(morgan(':method :url :status'));
-    app.locals.pretty = true;
-    mongoose.set('debug', true)
+    app.locals.pretty = true; //源码未格式化
+    mongoose.set('debug', true)//mongoose调试打开
 }
 
 

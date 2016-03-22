@@ -16,7 +16,7 @@ exports.save = function(req, res) {
             };
 
             comment.reply.push(reply);
-
+// console.log('comment', comment)
             comment.save(function(err, comment) {
                 if (err) console.log(err)
 
