@@ -1,10 +1,10 @@
 var mongoose = require('mongoose');
-var bcrypt = require('bcrypt')
-var SALT_WORK_FACTOR = 10
+var bcrypt = require('bcrypt') // 加盐，
+var SALT_WORK_FACTOR = 10 // 计算强度
 
 var UserSchema = new mongoose.Schema({
     name: {
-        unique: true,
+        unique: true, // 唯一
         type: String
     },
     password: String,
@@ -40,7 +40,7 @@ UserSchema.pre('save', function(next) {
         this.meta.updateAt = Date.now();
     }
 
-    //密码加盐
+    //密码加盐 在原始的数据上加上一些字符
     bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt) {
         if (err) return next(err)
 
@@ -61,7 +61,6 @@ UserSchema.methods = {
         bcrypt.compare(_password, this.password, function(err, isMatch) {
 
             if (err) return cb(err)
-
             return cb(null, isMatch)
 
         })

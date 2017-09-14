@@ -10,7 +10,9 @@ var cookieParser = require('cookie-parser');
 var cookieSession = require('cookie-session');
 var bodyParser = require('body-parser');
 
-mongoose.connect('mongodb://localhost/imooc');
+var dbUrl = 'mongodb://localhost/imooc';
+// var mongoStore = require('connect-mongo')(express);
+mongoose.connect(dbUrl);
 
 // .get .set 可以往 express 实例上存数据，可以是对 express 的配置数据，也可以是其它数据
 app.set('views', './app/views/pages');
@@ -25,6 +27,10 @@ app.use(bodyParser.urlencoded({
 app.use(cookieParser())
 app.use(cookieSession({
     secret: 'imooc'
+    // store: new mongoStore({ // 用mongodb 持久化登录态
+    //     url: dbUrl,
+    //     collection: 'sessions'
+    // })
 }))
 
 //app.locals  persist throughout the life of the application

@@ -3,10 +3,10 @@ var UserModel = require('../models/user');
 
 //user signup | /user/signup
 exports.signup = function(req, res) {
-    var _user = req.body.user;
+    var _user = req.body.user; // post 等表单提交过来的
 
-    // req.param('user')
-    // req.query.user
+    // req.param('user') 不区分形式
+    // req.query.user // url参数
 
     UserModel.findOne({
         name: _user.name
